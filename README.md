@@ -3,6 +3,19 @@
 A **fully customizable**, **performant**, and **interactive** Google Calendar-style scheduler for React Native.
 Designed to look and feel premium, with smooth Reanimated transitions, smart auto-scrolling, and complete control over event rendering.
 
+## 📸 Screenshots
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/OmShankar123/react-native-google-calendar-view/main/screenshots/day-view.png" alt="Day View" width="250"/>
+  <img src="https://raw.githubusercontent.com/OmShankar123/react-native-google-calendar-view/main/screenshots/week-view.png" alt="Week View" width="250"/>
+  <img src="https://raw.githubusercontent.com/OmShankar123/react-native-google-calendar-view/main/screenshots/month-view.png" alt="Month View" width="250"/>
+</div>
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/OmShankar123/react-native-google-calendar-view/main/screenshots/custom-events.png" alt="Custom Event Cards" width="250"/>
+  <img src="https://raw.githubusercontent.com/OmShankar123/react-native-google-calendar-view/main/screenshots/overlapping-events.png" alt="Overlapping Events" width="250"/>
+</div>
+
 [![npm version](https://badge.fury.io/js/react-native-google-calendar-view.svg)](https://badge.fury.io/js/react-native-google-calendar-view)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
