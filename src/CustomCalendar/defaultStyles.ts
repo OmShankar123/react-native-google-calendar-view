@@ -228,6 +228,7 @@ export const createDefaultCalendarStyles = (
 
     monthViewContainer: {
       paddingBottom: ms(20),
+      marginTop: ms(10),
     },
     monthHeaderContainer: {
       flexDirection: 'row',
