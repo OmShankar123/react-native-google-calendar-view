@@ -28,6 +28,7 @@ interface WeekViewProps {
   timeSlots?: string[];
   startHour?: number;
   getEventContainerStyle?: (event: CalendarEvent) => any;
+  renderTimeLabel?: (time: string) => React.ReactNode;
 }
 
 const defaultTimeSlots = [
@@ -67,6 +68,7 @@ export const WeekView: React.FC<WeekViewProps> = ({
   timeSlots = defaultTimeSlots,
   startHour = 1,
   getEventContainerStyle,
+  renderTimeLabel,
 }) => {
   const headerScrollRef = useAnimatedRef<any>();
   const gridScrollRef = useAnimatedRef<any>();
@@ -203,7 +205,11 @@ export const WeekView: React.FC<WeekViewProps> = ({
           <View style={styles.timelineTimeCol}>
             {timeSlots.map((time, index) => (
               <View key={index} style={styles.timelineTimeSlot}>
-                <Text style={styles.timeLabel}>{time}</Text>
+                {renderTimeLabel ? (
+                  renderTimeLabel(time)
+                ) : (
+                  <Text style={styles.timeLabel}>{time}</Text>
+                )}
               </View>
             ))}
           </View>

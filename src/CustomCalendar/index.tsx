@@ -87,6 +87,8 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
   startHour = 1,
   headerLayout = 'column',
   legendPosition = 'right',
+  renderHeaderRight,
+  renderTimeLabel,
 }) => {
   const styles = useMemo(
     () => ({ ...createDefaultCalendarStyles(theme), ...propStyles }),
@@ -550,6 +552,9 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
               }}
             />
           </TouchableOpacity>
+          {renderHeaderRight && (
+            <View style={{ marginLeft: ms(10) }}>{renderHeaderRight()}</View>
+          )}
         </View>
 
         {(headerLayout === 'column' || legendPosition === 'right') &&
@@ -620,6 +625,7 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
                 timeSlots={timeSlots}
                 startHour={startHour}
                 getEventContainerStyle={autoGetEventContainerStyle}
+                renderTimeLabel={renderTimeLabel}
               />
             </ScrollView>
           </>
@@ -640,6 +646,7 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
             timeSlots={timeSlots}
             startHour={startHour}
             getEventContainerStyle={autoGetEventContainerStyle}
+            renderTimeLabel={renderTimeLabel}
           />
         )}
 

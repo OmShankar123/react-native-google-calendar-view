@@ -178,18 +178,27 @@ Customize different sections of the calendar container.
 
 ### Props
 
-| Prop              | Type                         | Default      | Description                                        |
-| ----------------- | ---------------------------- | ------------ | -------------------------------------------------- |
-| `events`          | `CalendarEvent[]`            | `[]`         | Array of event objects.                            |
-| `initialDate`     | `Date`                       | `new Date()` | The starting date.                                 |
-| `viewMode`        | `'day' \| 'week' \| 'month'` | `'day'`      | Current view. Can be controlled state.             |
-| `onViewChange`    | `(mode) => void`             | -            | Callback when view changes.                        |
-| `onDateChange`    | `(date) => void`             | -            | Callback when selected date changes.               |
-| `onEventPress`    | `(event) => void`            | -            | Callback when an event card is pressed.            |
-| `renderEventCard` | `Function`                   | -            | **Core Feature**: Custom renderer for event cards. |
-| `theme`           | `CalendarTheme`              | -            | Color and font customization.                      |
-| `startHour`       | `number`                     | `1`          | Start hour for the grid (0-23).                    |
-| `timeSlots`       | `string[]`                   | 24h          | Custom Y-axis labels.                              |
+| Prop                     | Type                         | Default      | Description                                        |
+| ------------------------ | ---------------------------- | ------------ | -------------------------------------------------- |
+| `events`                 | `CalendarEvent[]`            | `[]`         | Array of event objects.                            |
+| `initialDate`            | `Date`                       | `new Date()` | The starting date.                                 |
+| `viewMode`               | `'day' \| 'week' \| 'month'` | `'day'`      | Current view. Can be controlled state.             |
+| `onViewChange`           | `(mode) => void`             | -            | Callback when view changes.                        |
+| `onDateChange`           | `(date) => void`             | -            | Callback when selected date changes.               |
+| `onEventPress`           | `(event) => void`            | -            | Callback when an event card is pressed.            |
+| `renderEventCard`        | `Function`                   | -            | **Core Feature**: Custom renderer for event cards. |
+| `theme`                  | `CalendarTheme`              | -            | Color and font customization.                      |
+| `startHour`              | `number`                     | `1`          | Start hour for the grid (0-23).                    |
+| `timeSlots`              | `string[]`                   | 24h          | Custom Y-axis labels.                              |
+| `headerLayout`           | `'row' \| 'column'`          | `'row'`      | Layout direction for the header.                   |
+| `legendPosition`         | `'left' \| 'right'`          | `'left'`     | Position of the legend relative to date navigator. |
+| `legendItems`            | `LegendItem[]`               | -            | Array of `{ label, color }` for the legend.        |
+| `styles`                 | `CalendarStyles`             | -            | Overrides for specific component styles.           |
+| `labels`                 | `CalendarLabels`             | -            | Custom labels for UI text.                         |
+| `renderHeaderRight`      | `() => ReactNode`            | -            | Render custom content in the header.               |
+| `renderEventMarkers`     | `(date, events) => Node`     | -            | Custom renderer for month view dots/markers.       |
+| `renderTimeLabel`        | `(time) => Node`             | -            | Custom renderer for time slots.                    |
+| `getEventContainerStyle` | `(event) => ViewStyle`       | -            | Function to return dynamic styles for event cards. |
 
 ## 🤝 Contributing
 

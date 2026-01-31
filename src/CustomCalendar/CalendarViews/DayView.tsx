@@ -24,6 +24,7 @@ interface DayViewProps {
   startHour?: number;
   formatDateDDMMYYYY?: (date: Date) => string;
   getEventContainerStyle?: (event: CalendarEvent) => any;
+  renderTimeLabel?: (time: string) => React.ReactNode;
 }
 
 const defaultTimeSlots = [
@@ -64,6 +65,7 @@ export const DayView: React.FC<DayViewProps> = ({
   timeSlots = defaultTimeSlots,
   startHour = 1,
   getEventContainerStyle,
+  renderTimeLabel,
 }) => {
   const dayEvents = useMemo(
     () => getEventsForDay(events, selectedDate),
@@ -94,7 +96,11 @@ export const DayView: React.FC<DayViewProps> = ({
       <View style={styles.timelineTimeCol}>
         {timeSlots.map((time, index) => (
           <View key={index} style={styles.timelineTimeSlot}>
-            <Text style={styles.timeLabel}>{time}</Text>
+            {renderTimeLabel ? (
+              renderTimeLabel(time)
+            ) : (
+              <Text style={styles.timeLabel}>{time}</Text>
+            )}
           </View>
         ))}
       </View>
