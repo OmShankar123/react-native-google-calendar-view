@@ -22,6 +22,7 @@ export interface CalendarTheme {
     todayHighlight?: string;
     switcherBackground?: string;
     stripBackground?: string;
+    activeTextColor?: string;
     [key: string]: any;
   };
   fonts: {

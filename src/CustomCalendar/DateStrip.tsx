@@ -83,8 +83,10 @@ export const DateStrip: React.FC<DateStripProps> = ({
                   styles.dateStripDayText,
                   {
                     color: isSelected
-                      ? theme.colors.backgroundColor
-                      : theme.colors.mainText,
+                      ? theme?.colors?.activeTextColor ||
+                        theme?.colors?.backgroundColor ||
+                        '#fff'
+                      : theme?.colors?.mainText || '#000',
                   },
                 ]}
               >
@@ -95,8 +97,10 @@ export const DateStrip: React.FC<DateStripProps> = ({
                   styles.dateStripDateText,
                   {
                     color: isSelected
-                      ? theme.colors.backgroundColor
-                      : theme.colors.secondaryText,
+                      ? theme?.colors?.activeTextColor ||
+                        theme?.colors?.backgroundColor ||
+                        '#fff'
+                      : theme?.colors?.secondaryText || '#666',
                   },
                 ]}
               >
@@ -111,8 +115,8 @@ export const DateStrip: React.FC<DateStripProps> = ({
                       styles.weekHeaderEventDot,
                       {
                         backgroundColor: isSelected
-                          ? theme.colors.backgroundColor
-                          : theme.colors.mainText,
+                          ? theme?.colors?.backgroundColor || '#fff'
+                          : theme?.colors?.mainText || '#000',
                       },
                     ]}
                   />

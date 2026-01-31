@@ -138,25 +138,41 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
         return getEventContainerStyle(event);
       }
 
-      if (!legendItems || legendItems.length === 0) {
-        return {};
-      }
-
-      const eventType = (event.type || event.status || '').toLowerCase();
-      const matchedLegend = legendItems.find(
-        (item) => item.label.toLowerCase() === eventType
-      );
-
-      if (matchedLegend) {
-        const bgColor = lightenColor(matchedLegend.color, 0.85);
+      // 1. Check for direct event color
+      if (event.color) {
+        const bgColor = lightenColor(event.color, 0.85);
         return {
           backgroundColor: bgColor,
-          borderLeftColor: matchedLegend.color,
+          borderLeftColor: event.color,
           borderLeftWidth: 3,
         };
       }
 
-      return {};
+      // 2. Check legend if available
+      if (legendItems && legendItems.length > 0) {
+        const eventType = (event.type || event.status || '').toLowerCase();
+        const matchedLegend = legendItems.find(
+          (item) => item.label.toLowerCase() === eventType
+        );
+
+        if (matchedLegend) {
+          const bgColor = lightenColor(matchedLegend.color, 0.85);
+          return {
+            backgroundColor: bgColor,
+            borderLeftColor: matchedLegend.color,
+            borderLeftWidth: 3,
+          };
+        }
+      }
+
+      // 3. Default fallback
+      const defaultColor = theme?.colors?.primary || '#3498db';
+      const defaultBgColor = lightenColor(defaultColor, 0.85);
+      return {
+        backgroundColor: defaultBgColor,
+        borderLeftColor: defaultColor,
+        borderLeftWidth: 3,
+      };
     },
     [legendItems, getEventContainerStyle]
   );
@@ -173,7 +189,9 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
           {limitedEvents.map((e, index) => {
             let markerColor = theme?.colors?.mainText || '#000';
 
-            if (legendItems && legendItems.length > 0) {
+            if (e.color) {
+              markerColor = e.color;
+            } else if (legendItems && legendItems.length > 0) {
               const eventType = (e.type || e.status || '').toLowerCase();
               const matchedLegend = legendItems.find(
                 (item) => item.label.toLowerCase() === eventType
@@ -386,24 +404,35 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
   const [pagerWidth, setPagerWidth] = useState(Dimensions.get('window').width);
   const pagerRef = useRef<ScrollView>(null);
 
+  const isPagingRef = useRef(false);
+
   useEffect(() => {
     if (viewMode === 'month' && pagerRef.current) {
       if (Platform.OS === 'android') {
-        setTimeout(
-          () => pagerRef.current?.scrollTo({ x: pagerWidth, animated: false }),
-          0
-        );
+        setTimeout(() => {
+          pagerRef.current?.scrollTo({ x: pagerWidth, animated: false });
+          isPagingRef.current = false;
+        }, 50);
       } else {
         pagerRef.current.scrollTo({ x: pagerWidth, animated: false });
+        isPagingRef.current = false;
       }
     }
   }, [currentDisplayDate, pagerWidth, viewMode]);
 
   const handleMomentumScrollEnd = (e: any) => {
+    if (isPagingRef.current) return;
+
     const offsetX = e.nativeEvent.contentOffset.x;
     const page = Math.round(offsetX / pagerWidth);
-    if (page === 0) handlePrev();
-    else if (page === 2) handleNext();
+
+    if (page === 0) {
+      isPagingRef.current = true;
+      handlePrev();
+    } else if (page === 2) {
+      isPagingRef.current = true;
+      handleNext();
+    }
   };
 
   return (
@@ -453,7 +482,7 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
               },
         ]}
       >
-        {headerLayout === 'row' && legendPosition === 'left' && (
+        {headerLayout === 'row' && legendPosition === 'left' && legendItems && (
           <View
             style={{
               flexDirection: 'column',
@@ -462,18 +491,7 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
               flex: 1,
             }}
           >
-            {(
-              legendItems || [
-                {
-                  label: labels.scheduled || 'Scheduled',
-                  color: theme?.colors?.mainText || '#000',
-                },
-                {
-                  label: labels.completed || 'Completed',
-                  color: theme?.colors?.primary || 'gold',
-                },
-              ]
-            ).map((item, index) => (
+            {legendItems.map((item, index) => (
               <View key={index} style={styles.legendItem}>
                 <View
                   style={[styles.legendDot, { backgroundColor: item.color }]}
@@ -534,42 +552,32 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
           </TouchableOpacity>
         </View>
 
-        {(headerLayout === 'column' || legendPosition === 'right') && (
-          <View
-            style={{
-              flexDirection: headerLayout === 'row' ? 'column' : 'row',
-              alignItems: headerLayout === 'row' ? 'flex-start' : 'center',
-              alignSelf:
-                headerLayout === 'row' && legendPosition === 'right'
-                  ? 'flex-end'
-                  : undefined,
-              flexWrap: headerLayout === 'column' ? 'wrap' : undefined,
-              justifyContent:
-                headerLayout === 'column' ? 'center' : 'flex-start',
-              flex: headerLayout === 'row' ? undefined : undefined,
-            }}
-          >
-            {(
-              legendItems || [
-                {
-                  label: labels.scheduled || 'Scheduled',
-                  color: theme?.colors?.mainText || '#000',
-                },
-                {
-                  label: labels.completed || 'Completed',
-                  color: theme?.colors?.primary || 'gold',
-                },
-              ]
-            ).map((item, index) => (
-              <View key={index} style={styles.legendItem}>
-                <View
-                  style={[styles.legendDot, { backgroundColor: item.color }]}
-                />
-                <Text style={styles.legendText}>{item.label}</Text>
-              </View>
-            ))}
-          </View>
-        )}
+        {(headerLayout === 'column' || legendPosition === 'right') &&
+          legendItems && (
+            <View
+              style={{
+                flexDirection: headerLayout === 'row' ? 'column' : 'row',
+                alignItems: headerLayout === 'row' ? 'flex-start' : 'center',
+                alignSelf:
+                  headerLayout === 'row' && legendPosition === 'right'
+                    ? 'flex-end'
+                    : undefined,
+                flexWrap: headerLayout === 'column' ? 'wrap' : undefined,
+                justifyContent:
+                  headerLayout === 'column' ? 'center' : 'flex-start',
+                flex: headerLayout === 'row' ? undefined : undefined,
+              }}
+            >
+              {legendItems.map((item, index) => (
+                <View key={index} style={styles.legendItem}>
+                  <View
+                    style={[styles.legendDot, { backgroundColor: item.color }]}
+                  />
+                  <Text style={styles.legendText}>{item.label}</Text>
+                </View>
+              ))}
+            </View>
+          )}
       </View>
 
       {/* @ts-ignore - Reanimated type definitions issue */}
