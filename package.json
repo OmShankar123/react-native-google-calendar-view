@@ -97,9 +97,9 @@
     "react": "19.0.0",
     "react-native": "0.79.5",
     "react-native-builder-bob": "^0.40.13",
+    "react-native-reanimated": "~3.17.4",
     "release-it": "^19.0.4",
-    "typescript": "^5.9.2",
-    "react-native-reanimated": "~3.17.4"
+    "typescript": "^5.9.2"
   },
   "peerDependencies": {
     "react": "*",

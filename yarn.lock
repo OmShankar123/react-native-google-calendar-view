@@ -7630,13 +7630,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"install@npm:^0.13.0":
-  version: 0.13.0
-  resolution: "install@npm:0.13.0"
-  checksum: 10c0/364d7d1e9404ff7ae3015dee7266b4ffb0e2aae348474b7ffd3e42fcbb78b37e29848e18ca94f93166f6ddb248be0f775fbed87cc92dafb018c289a86d010cf1
-  languageName: node
-  linkType: hard
-
 "internal-slot@npm:^1.1.0":
   version: 1.1.0
   resolution: "internal-slot@npm:1.1.0"
@@ -11082,7 +11075,6 @@ __metadata:
     eslint: "npm:^9.35.0"
     eslint-config-prettier: "npm:^10.1.8"
     eslint-plugin-prettier: "npm:^5.5.4"
-    install: "npm:^0.13.0"
     jest: "npm:^29.7.0"
     lefthook: "npm:^2.0.3"
     prettier: "npm:^2.8.8"
@@ -11095,6 +11087,7 @@ __metadata:
   peerDependencies:
     react: "*"
     react-native: "*"
+    react-native-reanimated: "*"
   languageName: unknown
   linkType: soft
 
