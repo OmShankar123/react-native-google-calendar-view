@@ -43,7 +43,24 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "calendar",
+    "scheduler",
+    "google-calendar",
+    "calendar-view",
+    "event-calendar",
+    "agenda",
+    "planner",
+    "day-view",
+    "week-view",
+    "month-view",
+    "event-scheduler",
+    "calendar-component",
+    "react-native-calendar",
+    "customizable-calendar",
+    "event-management",
+    "timeline",
+    "schedule"
   ],
   "repository": {
     "type": "git",
